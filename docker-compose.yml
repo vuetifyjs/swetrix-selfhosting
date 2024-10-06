@@ -5,10 +5,10 @@ services:
     restart: always
     depends_on:
       - swetrix-api
-    ports:
-      - '80:3000'
+    # ports:
+    #   - '80:3000'
     environment:
-      - API_URL=http://localhost:8080/
+      - API_URL
       - SELFHOSTED=true
 
   # This is the analytics API
@@ -16,19 +16,19 @@ services:
     image: swetrix/swetrix-api:v3.2.3
     restart: always
     container_name: swetrix-api
-    ports:
-      - '8080:5005'
+    # ports:
+    #   - '8080:5005'
     environment:
-      - JWT_ACCESS_TOKEN_SECRET=jwt-access-token-secret
-      - JWT_REFRESH_TOKEN_SECRET=jwt-refresh-token-secret
+      - JWT_ACCESS_TOKEN_SECRET
+      - JWT_REFRESH_TOKEN_SECRET
       - REDIS_HOST=redis
       - CLICKHOUSE_HOST=http://clickhouse
-      - API_ORIGINS=
-      - EMAIL=test@test.com
-      - PASSWORD=12345678
-      - API_KEY=
+      - API_ORIGINS
+      - EMAIL
+      - PASSWORD
+      - API_KEY
       - DEBUG_MODE=false
-      - CLOUDFLARE_PROXY_ENABLED=false
+      - CLOUDFLARE_PROXY_ENABLED=true
     links:
       - 'redis'
       - 'clickhouse'
@@ -41,7 +41,7 @@ services:
     environment:
       - REDIS_PORT=6379
       - REDIS_USER=default
-      - REDIS_PASSWORD=
+      - REDIS_PASSWORD
     # ports:
     #   - 6379:6379
   #   volumes:
@@ -55,7 +55,7 @@ services:
       - CLICKHOUSE_DATABASE=analytics
       - CLICKHOUSE_USER=default
       - CLICKHOUSE_PORT=8123
-      - CLICKHOUSE_PASSWORD=
+      - CLICKHOUSE_PASSWORD
     # ports:
     #   - 8123:8123
     restart: always
